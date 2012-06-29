@@ -1,0 +1,326 @@
+/* general colors:
+   * borders: #161616
+   * text: #DDDDDD
+   * background: #191919
+   * layers: #333333
+*/
+
+body { 
+  background-color: #191919;
+  color: #DDDDDD;
+  font-family: arial, sans-serif;
+  letter-spacing: 1.5px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.fakewindow { 
+  background-color: #333333;
+  border: 1px solid #000000;
+  /*width: 97%; */
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -webkit-box-shadow: 5px 5px 5px #161616;
+  text-align: left;
+  display: none;
+}
+
+#topBar { 
+  background-color: #333333;
+  border: 1px solid #000000;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -webkit-box-shadow: 5px 5px 5px #161616;
+  /*height: 30px;*/
+  margin-top: 5px;
+  text-align: center;
+}
+
+#loginForm { 
+  margin-bottom: 0;
+  display: inline;
+}
+
+input, button, select {  
+  border: 2px solid #161616;
+  background-color: #191919;
+  text-align: center;
+  padding-left: 4px;
+  padding-right: 4px;
+  color: #DDDDDD;
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+}
+
+input:hover, button:hover{ 
+  border-color: #B53B09;
+}
+
+input:active, button:active{ 
+  border-color: #CC1E00;
+  background-color: #1C1C1C;
+}
+
+select { 
+  border: 0;
+}
+
+
+#leftSideButtons { 
+  text-align: right;
+  border-right: 1px solid #161616;
+  padding-right: 10px;
+  margin-right: 5px;
+}
+
+#rightSideButtons { 
+  text-align: left;
+  border-left: 1px solid #161616;
+  padding-left: 10px;
+  margin-left: 5px;
+}
+
+.sideButtons button{  
+  display: none;
+}
+
+
+#messages { 
+  list-style: none;
+  padding-left: 10px;
+}
+
+.message:first-child{ 
+  border-top: 1px solid #161616;
+}
+
+.message:first-child .message-title{ 
+  border-top: 1px solid #161616;
+}
+
+.message { 
+  border-bottom: 1px solid #161616;
+ /* padding-top: 3px;
+  padding-bottom: 3px; */
+  border-left: 1px solid #161616;
+  padding-left: 20px;
+}
+
+.message-title { 
+  background-color: #202020;
+  padding-right: 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #161616;
+}
+
+.message-host{ 
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-right: 5px;
+  border-right: 1px solid #161616;
+}
+
+.message-text{ 
+  background-color: rgba(33, 33, 33, .40);
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-right: 3px;
+  padding-left: 10px;
+  line-height: 21px;
+}
+
+.message-extra { 
+  display: none;
+  border-top: 1px solid #161616;
+  padding-top: 3px;
+  padding-bottom: 5px;
+}
+
+
+.title{ 
+  font-size: large;
+  border-bottom: 1px solid #BBBBBB;
+  width: 60%;
+  padding-left: 3px;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+#filterButtons, #soundButtons, #settingsButtons { 
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+#filterList{ 
+  /*list-style: none;*/
+  border-spacing: 0 0;
+  padding-left: 0px;
+  margin-left: 10px;
+  padding: 0;
+  /*border-left: 1px solid #161616;
+  border-top: 1px solid #161616;
+  border-bottom: 1px solid #161616;
+  border-right: 0;*/
+  border: 0;
+}
+
+.filterRule, #filterRule_header { 
+  border-left: 1px solid #161616;
+  border-right: 1px solid #161616;
+  border-bottom: 1px solid #161616;
+  background-color: #3C3C3C;
+  padding-top: 0;
+  padding-bottom: 0;
+  width: 575px;
+}
+
+#filterRule_header { 
+  border-top: 1px solid #161616;
+  border-bottom-size: 2px;
+  margin-left: 10px;
+  text-decoration: none;
+  font-size: 14px;  
+  margin-bottom:3px;
+}
+
+/*#filterRule_header th { 
+  border-bottom: 2px solid #161616;
+  margin-bottom:3px;
+}
+*/
+
+.filterRule:first-child { 
+  border-top: 1px solid #161616;
+}
+
+/* default rule */
+.filterRule:last-child { 
+  border-top: 1px solid #161616;
+  margin-top: 5px;
+  /*background-color: #282828; for reasons beyond me, this doesn't work with the sortable */
+}
+
+.filterRule_col{
+  margin-top: 0;
+  margin-bottom: 0;
+  /*padding-top: 5px;
+  padding-bottom: 5px;*/
+  border-right: 1px solid #161616;
+  padding-right: 5px;
+  margin-right: 5px;
+  height: 100%;
+  border-bottom: 1px solid #161616;
+  text-align: center;
+}
+
+.filterRule_col:first-child { 
+  padding-left: 5px;
+  border-left: 1px solid #161616;
+}
+
+.filterRule_col:last-child { 
+  border-right: 0;
+}
+
+#filterRule_header .filterRule_col { 
+  border-top: 1px solid #161616;
+  border-bottom: 0px;
+}
+
+#filterRule_header .filterRule_col:last-child{  
+  border-right: 1px solid #161616;
+}
+
+.filterRule:last-child .filterRule_col {  
+  border-bottom: 1px solid #161616;
+  background-color: #282828;
+}
+
+.filterRule_host, .filterRule_service, .filterRule_sound { 
+  width: 150px;
+}
+
+.filterRule:last-child .filterRule_col:last-child { 
+  display: none;
+}
+
+.linkButton{  
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-weight: bold;
+}
+
+.linkButton:hover, .linkButton:active {  
+  background-color: #191919;
+}
+
+.filterRule:nth-child(2) .filterRule_col { 
+  border-top: 2px solid #161616;
+}
+
+.filterRule_colLevelSelect {  
+  padding: 0;
+}
+
+.filterRule_levelSelectList { 
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.filterRule_filterLevelItem { 
+  text-align: left;
+ }
+
+.filterRule_delete {  
+  font-size: 20px;
+}
+
+
+#soundsTable { 
+  border-spacing: 0;
+  margin-left: 10px;
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
+
+.soundList_col {  
+  border-bottom: 1px solid #161616;
+  border-left: 1px solid #161616;
+  background-color: #3C3C3C;
+  padding: 2px;
+}
+
+#sounds_header .soundList_col {
+  border-top: 1px solid #161616;
+  border-bottom: 0;
+}
+
+.soundList_col:last-child {  
+  border-right: 1px solid #161616;
+}
+
+.soundListItem:first-child .soundList_col{ 
+  border-top: 2px solid #161616;
+}
+
+.fieldTable {  
+  border-spacing: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.fieldTableKey{  
+  font-weight: bold;
+  padding-right: 5px;
+  text-align: right;
+  border-right: 1px solid #161616;
+}
+
+.fieldTableValue {  
+  text-align: left;
+  padding-left: 5px;
+}

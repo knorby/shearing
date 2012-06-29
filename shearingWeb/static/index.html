@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Selective Hearing</title>
+    <link rel="icon" type="image/png" href="/static/imgs/ear.png"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/fileuploader.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css"/>
+    <!--Javascript-->
+    <!--JS Libraries-->
+    <script src="/audio/getAvailableFilesAsScript" type="text/javascript"></script>
+    <script src="/static/socket.io/socket.io.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/Base.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/DOM.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/Async.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/Iter.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/Style.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/Signal.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/Position.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/Color.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/Visual.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/DateTime.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/Format.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/Logging.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/Selector.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/LoggingPane.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/Text.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/DragAndDrop.js" type="text/javascript"></script>
+    <script src="/static/js/mochikit/Sortable.js" type="text/javascript"></script>
+    <script src="/static/js/fileuploader.js" type="text/javascript"></script>
+    <script src="/static/js/base.js" type="text/javascript"></script>
+    <script src="/static/js/prefSaver.js" type="text/javascript"></script>
+    <script src="/static/js/soundmanager2/soundmanager2.js" type="text/javascript"></script>
+    <script src="/static/js/levels.js" type="text/javascript"></script>
+    <script src="/static/js/msgDisplay.js" type="text/javascript"></script>
+    <script src="/static/js/notify.js" type="text/javascript"></script>
+    <script src="/static/js/audioAlert.js" type="text/javascript"></script>
+    <script src="/static/js/filters.js" type="text/javascript"></script>
+    <script src="/static/js/updater.js" type="text/javascript"></script>
+    <script src="/static/js/startup.js" type="text/javascript"></script>
+  </head>
+    <body>
+      <div id="topBar">
+        <span id="leftSideButtons" class="sideButtons">
+          <button id="muteButton" onclick="manager.toggleMute();">Mute</button>
+          <button id="updateToggleButton" onclick="manager.toggleUpdates();">Stop Updates</button>
+          <button id="clearNotificationsButton" onclick="manager.clearNotifications();">Clear Notifications</button>
+        </span>
+        <form action="javascript:manager.load();" id="loginForm">
+          Username: <input id="username" name="username" type="text"/>
+          <input id="loginSubmit" name="loginSubmit" type="submit" value="Go!"/>
+        </form>
+        <span id="rightSideButtons" class="sideButtons">
+          <button id="filtersButton" onclick="manager.editFilters();">Edit Filters</button>
+          <button id="soundsButton" onclick="manager.editSounds();">Edit Sounds</button>
+          <button id="settingsButton" onclick="manager.editSettings();">Edit Settings</button>
+        </span>
+      </div>
+      <div id="settings" class="fakewindow">
+        <div class="title">Settings</div>
+        <ul id="settingsList">
+          <li>Enable Sounds: <input type="checkbox" id="enabledSoundsCheckbox"/></li>
+          <li>Max Displayed Messages (0 for unlimited): <input type="text" id="maxDisplayedMessagesInput"/></li>
+          <li>Notification Timeout in Seconds (0 for none): <input type="text" id="notifyTimeoutInput"/></li>
+        </ul>
+        <div class="settingsButtons">
+          <button id="closeSettingsButton" onclick="manager.saveSettings();">Save</button>
+          <button id="closeSettingsButton" onclick="showFakeWindow('body');">Close Without Saving</button>
+        </div>
+      </div>
+      <div id="sounds" class="fakewindow">
+        <div class="title">Sounds</div>
+        <table id="soundsTable">
+          <thead>
+            <tr id="sounds_header">
+              <th class="soundList_col">Name</th>
+              <th class="soundList_col">Length (seconds)</th>
+            </tr>
+          </thead>
+          <tbody id="soundsList"></tbody>
+        </table>
+        <div id="soundButtons">
+          <div id="file-uploader"></div>
+          <button id="doneSoundButton" onclick="showFakeWindow('body');">Done</button>
+        </div>
+      </div>
+      <div id="filters" class="fakewindow">
+        <div id="filterEditorBanner">
+          <div class="title">Filters</div>
+          <ul>
+            <li>Filters are ordered. The settings of the first filter to catch a message are used. Drag a rule up or down to change its priority.</li>
+            <li>'Host' and 'Service' should be regular expressions. Use '.*' to let the filter catch any host or service.</li>
+            <li>You should let your last rule be your most general, to act as the default case. The last rule is darker than the rest to reinforce this point.</li>
+          </ul>
+        </div>
+        <table id="filterList">
+          <!--to make this proper, the header should be in a THEAD, and the filterList a TBODY-->
+          <tr id="filterRule_header">
+            <th class="filterRule_col">Host</th>
+            <th class="filterRule_col">Service</th>
+            <th class="filterRule_col">Sound</th>
+            <th class="filterRule_col">Notify?</th>
+            <th class="filterRule_col">Show Message?</th>
+            <th class="filterRule_col">Level</th>
+            <!--th class="filterRule_col">Delete?</th-->
+          </tr>
+        </table>
+        <div id="filterButtons">
+          <button id="filterAddButton" onclick="manager.addFilterToEditor();">+</button>
+          <button id="filtersSaveButton" onclick="manager.saveFilters();">Save</button>
+          <button id="filtersCloseButton" onclick="manager.closeFilters();">Close Without Saving</button>
+        </div>
+      </div>
+      <div id="body" class="fakewindow">
+        <ul id="messages"></ul>
+      </div>
+    </body>
+</html>

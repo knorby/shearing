@@ -1,0 +1,27 @@
+<?xml version='1.0'?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<service_bundle type='manifest' name='export'>
+  <service name='selectiveHearing/icingaWatcher' type='service' version='0'>
+    <create_default_instance enabled='false'/>
+    <single_instance/>
+    <dependency name='nfs' grouping='require_all' restart_on='restart' type='service'>
+      <service_fmri value='svc:/network/nfs/client'/>
+    </dependency>
+    <exec_method name='start' type='method' exec='/var/opt/selectiveHearing/svc/methods/startIcingaWatcher.sh' timeout_seconds='60'>
+      <method_context>
+	<method_credential user='tladmin' group='sysadmin'/>
+      </method_context>
+    </exec_method>
+    <exec_method name='stop' type='method' exec=':kill' timeout_seconds='60'>
+      <method_context/>
+    </exec_method>
+    <property_group name='startd' type='framework'>
+      <propval name='ignore_error' type='astring' value='core,signal'/>
+    </property_group>
+    <template>
+      <common_name>
+	<loctext xml:lang='C'>Nagios Selective Hearing Driver</loctext>
+      </common_name>
+    </template>
+  </service>
+</service_bundle>

@@ -1,0 +1,3 @@
+include selectivehearing/config/deployment.ini_tmpl
+recursive-include selectivehearing/public *
+recursive-include selectivehearing/templates *
